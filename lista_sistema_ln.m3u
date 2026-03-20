@@ -1,11 +1,17 @@
 #EXTM3U
-#EXTINF:-1 group-title='CANALES FIJOS VIP', ESPN PREMIUM
-https://daddylive.cv/embed/stream.php?id=105|Referer=https://daddylive.cv/&User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36
-#EXTINF:-1 group-title='CANALES FIJOS VIP', DAZN 1 ESPAÑA
-https://daddylive.cv/embed/stream.php?id=538|Referer=https://daddylive.cv/&User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36
-#EXTINF:-1 group-title='CANALES FIJOS VIP', TYC SPORTS
-https://daddylive.cv/embed/stream.php?id=112|Referer=https://daddylive.cv/&User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36
-#EXTINF:-1 group-title='CANALES FIJOS VIP', FOX SPORTS 1
-https://daddylive.cv/embed/stream.php?id=16|Referer=https://daddylive.cv/&User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36
-#EXTINF:-1 group-title='CANALES FIJOS VIP', DIRECTV SPORTS
-https://daddylive.cv/embed/stream.php?id=366|Referer=https://daddylive.cv/&User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36
+#EXTINF:-1 group-title='DEPORTES INCREDIBLE', MERIDIANO TV (VZLA)
+https://meridianotv.miteleven.com/meridianotv/index.m3u8
+#EXTINF:-1 group-title='DEPORTES INCREDIBLE', TELEVEN (VZLA)
+https://televencam1.miteleven.com/televencam1/index.m3u8
+#EXTINF:-1 group-title='DEPORTES INCREDIBLE', WIN SPORTS (COL)
+https://stream.winsports.co/win/index.m3u8
+#EXTINF:-1 group-title='DEPORTES INCREDIBLE', RT DEPORTES (ESP)
+https://rt-esp.rt.com/live/rtesp/playlist.m3u8
+#EXTINF:-1 group-title='DEPORTES INCREDIBLE', TYC SPORTS (ALTERNATIVO)
+https://cdn.perfil.com/canal-e/live/playlist.m3u8
+#EXTINF:-1 group-title='MUNDO INCREDIBLE', CANAL 24 HORAS (ESP)
+https://rtvep-live-03.rtve.es/li/24H_CAN_MAI/playlist.m3u8
+#EXTINF:-1 group-title='MUNDO INCREDIBLE', VTV VENEZUELA
+https://vtv.miteleven.com/vtv/index.m3u8
+#EXTINF:-1 group-title='MUNDO INCREDIBLE', TELESUR
+https://telesur.miteleven.com/telesur/index.m3u8
