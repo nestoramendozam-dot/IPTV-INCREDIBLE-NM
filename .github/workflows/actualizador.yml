@@ -1,0 +1,31 @@
+name: Actualizar IPTV LN
+on:
+  schedule:
+    - cron: '*/30 * * * *' # Se ejecuta cada 30 minutos
+  workflow_dispatch: # Esto nos permite darle "Play" manual para probar
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del codigo
+        uses: actions/checkout@v3
+
+      - name: Configurar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Instalar librerias
+        run: pip install requests beautifulsoup4
+
+      - name: Ejecutar el Scraper
+        run: python bot_scraper.py
+
+      - name: Guardar cambios en el repositorio
+        run: |
+          git config --global user.name 'Sistema-LN-Bot'
+          git config --global user.email 'bot@sistemaln.com'
+          git add lista_sistema_ln.m3u
+          git commit -m "Lista Actualizada Automáticamente" || exit 0
+          git push
