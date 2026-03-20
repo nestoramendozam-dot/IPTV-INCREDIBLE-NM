@@ -1,41 +1,52 @@
 import requests
+from bs4 import BeautifulSoup
 
-def generar_lista_funcional():
-    # Encabezado estándar de IPTV
+def generar_lista_enlaces_web():
+    # URL base de DaddyLive
+    base_url = "https://daddylive.cv"
+    url_agenda = f"{base_url}/schedule/schedule-block.php"
+    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
+    
     m3u_content = "#EXTM3U\n"
     
-    # --- SECCIÓN: DEPORTES LATINOS (FUENTES ABIERTAS) ---
-    # Estos links son directos y funcionan sin bloqueos de navegador
-    deportes = [
-        {"n": "MERIDIANO TV (VZLA)", "u": "https://meridianotv.miteleven.com/meridianotv/index.m3u8"},
-        {"n": "TELEVEN (VZLA)", "u": "https://televencam1.miteleven.com/televencam1/index.m3u8"},
-        {"n": "WIN SPORTS (COL)", "u": "https://stream.winsports.co/win/index.m3u8"},
-        {"n": "RT DEPORTES (ESP)", "u": "https://rt-esp.rt.com/live/rtesp/playlist.m3u8"},
-        {"n": "TYC SPORTS (ALTERNATIVO)", "u": "https://cdn.perfil.com/canal-e/live/playlist.m3u8"}
+    # --- CANALES FIJOS (Acceso Directo Web) ---
+    canales_fijos = [
+        {"nombre": "ESPN PREMIUM", "id": "105"},
+        {"nombre": "DAZN 1 ESPAÑA", "id": "538"},
+        {"nombre": "TYC SPORTS", "id": "112"},
+        {"nombre": "FOX SPORTS 1", "id": "16"},
+        {"nombre": "DIRECTV SPORTS", "id": "366"}
     ]
     
-    for c in deportes:
-        m3u_content += f"#EXTINF:-1 group-title='DEPORTES INCREDIBLE', {c['n']}\n"
-        m3u_content += f"{c['u']}\n"
+    for canal in canales_fijos:
+        m3u_content += f"#EXTINF:-1 group-title='INCREDIBLE WEB-TV', {canal['nombre']}\n"
+        # Este link abre la página oficial del canal
+        m3u_content += f"{base_url}/stream/stream-{canal['id']}.php\n"
 
-    # --- SECCIÓN: CANALES MUNDIALES ---
-    mundo = [
-        {"n": "CANAL 24 HORAS (ESP)", "u": "https://rtvep-live-03.rtve.es/li/24H_CAN_MAI/playlist.m3u8"},
-        {"n": "VTV VENEZUELA", "u": "https://vtv.miteleven.com/vtv/index.m3u8"},
-        {"n": "TELESUR", "u": "https://telesur.miteleven.com/telesur/index.m3u8"}
-    ]
-
-    for c in mundo:
-        m3u_content += f"#EXTINF:-1 group-title='MUNDO INCREDIBLE', {c['n']}\n"
-        m3u_content += f"{c['u']}\n"
-
-    # Guardamos el archivo final en el repositorio
+    # --- PARTIDOS DEL DÍA (Automático) ---
     try:
-        with open("lista_sistema_ln.m3u", "w", encoding="utf-8") as f:
-            f.write(m3u_content)
-        print("¡Lista 100% Funcional Generada con Éxito!")
+        response = requests.get(url_agenda, headers=headers, timeout=10)
+        soup = BeautifulSoup(response.text, 'html.parser')
+        
+        for fila in soup.find_all('tr'):
+            cols = fila.find_all('td')
+            if len(cols) >= 2:
+                evento = cols[0].text.strip()
+                link_tag = cols[1].find('a')
+                if link_tag and 'href' in link_tag.attrs:
+                    # Construimos el link completo a la web del evento
+                    link_evento = link_tag['href']
+                    if not link_evento.startswith('http'):
+                        link_evento = f"{base_url}/{link_evento.lstrip('/')}"
+                    
+                    m3u_content += f"#EXTINF:-1 group-title='PARTIDOS DE HOY (WEB)', {evento}\n"
+                    m3u_content += f"{link_evento}\n"
     except Exception as e:
-        print(f"Error al guardar: {e}")
+        print(f"Error: {e}")
+
+    with open("lista_sistema_ln.m3u", "w", encoding="utf-8") as f:
+        f.write(m3u_content)
+    print("¡Lista de accesos directos actualizada!")
 
 if __name__ == "__main__":
-    generar_lista_funcional()
+    generar_lista_enlaces_web()
